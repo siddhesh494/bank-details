@@ -11,6 +11,10 @@ export default function bankSchema(name: string): any {
       })
     case BANK.GET_CUSTOMER:
       return joi.object({})
+    case BANK.GET_TRANSACTION_BELOW:
+      return joi.object({
+        amount: joi.number().required()
+      })
     default:
       return joi.object({})
   }

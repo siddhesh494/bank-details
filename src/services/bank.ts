@@ -17,6 +17,7 @@ class BankService {
     this.getConsumer = this.getConsumer.bind(this);
     this.getTransaction = this.getTransaction.bind(this);
     this.getDistinctProducts = this.getDistinctProducts.bind(this)
+    this.getTransactionBelow = this.getTransactionBelow.bind(this)
   }
 
   public async getConsumer(): Promise<any> {
@@ -72,6 +73,19 @@ class BankService {
       })
     }
     return productRes || []
+  }
+
+  public async getTransactionBelow(data: { amount: number }): Promise<any> {
+
+    const functionName = "getTransactionBelow-service"
+    const [transactionErr, transactionRes] = await safePromise(this.transactionsDA.getTransactionBelow(+data.amount))
+    if(transactionErr) {
+      log.error(functionName, "Error while getting transaction below", transactionErr)
+      return Promise.reject({
+        messageCode: MESSAGE_CODE.INTERNAL_ERROR
+      })
+    }
+    return transactionRes || []
   }
 
 }

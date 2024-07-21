@@ -14,5 +14,10 @@ export class TransactionsDA {
   public async findTransactionByAccountID(accountID: number) {
     return this.TransactionsCollention.findOne({account_id: accountID})
   }
+
+  public async getTransactionBelow(amount: number) {
+
+    return this.TransactionsCollention.distinct('account_id', { 'transactions.amount': { $lt: amount } });
+  }
   
 }

@@ -15,6 +15,7 @@ class BankController {
     this.getConsumer = this.getConsumer.bind(this);
     this.getTransaction = this.getTransaction.bind(this);
     this.getDistinctProducts = this.getDistinctProducts.bind(this);
+    this.getTransactionBelow = this.getTransactionBelow.bind(this)
   }
 
   public async getConsumer(req: Request | any, res: Response): Promise<any> {
@@ -70,6 +71,29 @@ class BankController {
       const [error, result] = await safePromise(this.bankService.getDistinctProducts())
       if(error) {
         log.error(functionName, "Error while getting Distinct product", error)
+        return res.status(error?.messageCode?.status || 500).json(response(error))
+      }
+
+      return res.status(200).json(response({
+        success: true,
+        messageCode: MESSAGE_CODE.SUCCESS,
+        data: result
+      }))  
+    } catch (error) {
+      return res.status(500).json(response({
+        success: false,
+        messageCode: MESSAGE_CODE.INTERNAL_ERROR
+      }))
+    }
+  }
+
+  public async getTransactionBelow(req: Request | any, res: Response): Promise<any> {
+
+    const functionName = "getTransactionBelow-controller"
+    try {
+      const [error, result] = await safePromise(this.bankService.getTransactionBelow(req.body))
+      if(error) {
+        log.error(functionName, "Error while getting getTransactionBelow", error)
         return res.status(error?.messageCode?.status || 500).json(response(error))
       }
 

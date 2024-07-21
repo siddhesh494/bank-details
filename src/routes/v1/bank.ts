@@ -12,5 +12,6 @@ const bankController = new BankController()
 router.post("/getConsumer", validator(BANK.module, BANK.route.GET_CUSTOMER), bankController.getConsumer)
 router.post("/getTransactions", validator(BANK.module, BANK.route.GET_TRANSACTION), bankController.getTransaction)
 router.post("/getProducts", validator(BANK.module, BANK.route.GET_PRODUCTS), bankController.getDistinctProducts)
+router.post("/getTransactionBelow", validator(BANK.module, BANK.route.GET_TRANSACTION_BELOW), bankController.getTransactionBelow)
 
 export = router

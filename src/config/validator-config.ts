@@ -4,7 +4,8 @@ const VALIDATE_MODULE_NAMES = {
     route: {
       GET_CUSTOMER: 'getCustomer',
       GET_TRANSACTION: 'getTransaction',
-      GET_PRODUCTS: "getProducts"
+      GET_PRODUCTS: "getProducts",
+      GET_TRANSACTION_BELOW: "getTransactionBelow"
     }
   }
 }
